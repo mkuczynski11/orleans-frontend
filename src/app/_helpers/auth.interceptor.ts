@@ -25,22 +25,22 @@ export class AuthInterceptor implements HttpInterceptor {
     }
 
     return next.handle(authReq).pipe(catchError(error => {
-      if (error instanceof HttpErrorResponse && !authReq.url.includes('auth/signin') && error.status === 401) {
-        return this.handle401Error(authReq, next);
+      if (error instanceof HttpErrorResponse && !authReq.url.includes('login') && error.status === 401 && this.tokenService.isLoggedIn()) {
+        return this.refreshTokenForUser(authReq, next);
       }
 
       return throwError(error);
     }));
   }
 
-  private handle401Error(request: HttpRequest<any>, next: HttpHandler) {
+  private refreshTokenForUser(request: HttpRequest<any>, next: HttpHandler) {
     if (!this.isRefreshing) {
       this.isRefreshing = true;
       this.refreshTokenSubject.next(null);
 
       const token = this.tokenService.getRefreshToken();
 
-      if (token)
+      if (token) {
         return this.authService.refreshToken(token).pipe(
           switchMap((token: any) => {
             this.isRefreshing = false;
@@ -57,10 +57,11 @@ export class AuthInterceptor implements HttpInterceptor {
             return throwError(err);
           })
         );
+      }
     }
 
     return this.refreshTokenSubject.pipe(
-      filter(token => token !== null),
+      filter(token => token != null),
       take(1),
       switchMap((token) => next.handle(this.addTokenHeader(request, token)))
     );

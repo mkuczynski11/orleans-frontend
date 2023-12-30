@@ -50,4 +50,8 @@ export class TokenStorageService {
 
     return {};
   }
+
+  public isLoggedIn(): any {
+    return Object.keys(this.getUser()).length !== 0;
+  }
 }

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../_services/user.service';
-import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
@@ -15,18 +14,16 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getWeatherForecast().subscribe({
       next: (data) => {
-        console.log('asd')
+        console.log(data)
         this.content = data;
       },
-      error: (error: HttpErrorResponse) => {
-        console.log(error)
+      error: (error) => {
         if (error.status == 401) {
           this.content = "Unauthorized to make a call"
         } else {
           this.content = "Unknown error"
         }
       }
-    }
-    )
+    })
   }
 }

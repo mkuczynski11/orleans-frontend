@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-const API_URL = 'https://localhost:8080/';
+const API_URL = '/api/';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +27,6 @@ export class UserService {
   // }
 
   getWeatherForecast(): Observable<any> {
-    return this.http.get(API_URL + 'WeatherForecast', { responseType: 'text' });
+    return this.http.request('GET', API_URL + 'WeatherForecast', {responseType:'text'});
   }
 }
