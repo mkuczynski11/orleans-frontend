@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../_services/user.service';
+import { KeycloakService } from 'keycloak-angular';
+import { KeycloakProfile } from 'keycloak-js';
 
 @Component({
   selector: 'app-home',
@@ -7,23 +8,16 @@ import { UserService } from '../_services/user.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  content?: string;
+  public isLoggedIn = false;
+  public userProfile: KeycloakProfile | null = null;
 
-  constructor(private userService: UserService) { }
+  constructor(private readonly keycloak: KeycloakService) { }
 
-  ngOnInit(): void {
-    this.userService.getWeatherForecast().subscribe({
-      next: (data) => {
-        console.log(data)
-        this.content = data;
-      },
-      error: (error) => {
-        if (error.status == 401) {
-          this.content = "Unauthorized to make a call"
-        } else {
-          this.content = "Unknown error"
-        }
-      }
-    })
+  public async ngOnInit() {
+    this.isLoggedIn = await this.keycloak.isLoggedIn();
+
+    if (this.isLoggedIn) {
+      this.userProfile = await this.keycloak.loadUserProfile();
+    }
   }
 }

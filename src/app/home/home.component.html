@@ -1,5 +1,8 @@
 <div class="container">
     <header class="jumbotron">
-      <p>{{ content }}</p>
+      <div *ngIf="userProfile">
+        <p *ngIf="userProfile.username">Welcome {{userProfile.username}} to Auction House</p>
+      </div>
+      <p *ngIf="!userProfile || !userProfile.username">Welcome to Auction House</p>
     </header>
   </div>

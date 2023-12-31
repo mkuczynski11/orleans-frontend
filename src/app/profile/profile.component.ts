@@ -1,17 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { TokenStorageService } from '../_services/token-storage.service';
+import { KeycloakService } from 'keycloak-angular';
+import { KeycloakProfile } from 'keycloak-js';
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+    selector: 'app-profile',
+    templateUrl: './profile.component.html',
+    styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit {
-  currentUser: any;
+    export class ProfileComponent implements OnInit {
+    public userProfile: KeycloakProfile | null = null;
 
-  constructor(private token: TokenStorageService) { }
+    constructor(private readonly keycloak: KeycloakService) {}
 
-  ngOnInit(): void {
-    this.currentUser = this.token.getUser();
-  }
+    public async ngOnInit() {
+        const isLoggedIn = await this.keycloak.isLoggedIn();
+
+        if (isLoggedIn) {
+            this.userProfile = await this.keycloak.loadUserProfile();
+        }
+    }
 }

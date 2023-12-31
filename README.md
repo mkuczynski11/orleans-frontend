@@ -2,6 +2,10 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.8.
 
+## Important
+
+To run app you need to run `docker-compose up` and `npm start` or use `npm run dev`. This will start docker container with keycloak and local frontend application.
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.

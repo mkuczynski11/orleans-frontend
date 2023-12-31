@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { TokenStorageService } from './_services/token-storage.service';
+import { KeycloakService } from 'keycloak-angular';
+import { KeycloakProfile } from 'keycloak-js';
 
 @Component({
   selector: 'app-root',
@@ -7,27 +8,28 @@ import { TokenStorageService } from './_services/token-storage.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  // private roles: string[] = [];
-  isLoggedIn = false;
-  username?: string;
+  public isLoggedIn = false;
+  public userProfile: KeycloakProfile | null = null;
 
-  constructor(private tokenStorageService: TokenStorageService) { }
+  constructor(private readonly keycloak: KeycloakService) {}
 
-  ngOnInit(): void {
-    this.isLoggedIn = !!this.tokenStorageService.getToken();
+  public async ngOnInit() {
+    this.isLoggedIn = await this.keycloak.isLoggedIn();
 
     if (this.isLoggedIn) {
-      const user = this.tokenStorageService.getUser();
-      // this.roles = user.roles;
-
-      this.username = user.username;
+      this.userProfile = await this.keycloak.loadUserProfile();
     }
   }
 
-  logout(): void {
-    this.tokenStorageService.signOut();
+  public login() {
+    this.keycloak.login();
+  }
 
-    this.isLoggedIn = false;
-    // this.roles = [];
+  public async logout() {
+    await this.keycloak.logout();
+  }
+
+  public register() {
+    console.log('register')
   }
 }
