@@ -9,6 +9,8 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { CommonModule } from '@angular/common';
 import { ProfileComponent } from './profile/profile.component';
+import { CategoriesListComponent } from './categories-list/categories-list.component';
+import { AuctionsApiService } from './auctions-api.service';
 
 function initializeKeycloak(keycloak: KeycloakService) {
   return () =>
@@ -30,7 +32,8 @@ function initializeKeycloak(keycloak: KeycloakService) {
   declarations: [
     AppComponent,
     HomeComponent,
-    ProfileComponent
+    ProfileComponent,
+    CategoriesListComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +48,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
     useFactory: initializeKeycloak,
     multi: true,
     deps: [KeycloakService]
-  }],
+  }, AuctionsApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

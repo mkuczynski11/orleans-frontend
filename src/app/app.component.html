@@ -4,6 +4,7 @@
 <button *ngIf="!isLoggedIn" type="button" (click)="login()">Log in</button>
 <button type="button"><a href="/home" routerLink="home">Home </a></button>
 <button *ngIf="isLoggedIn" type="button"><a href="/profile" routerLink="profile">Profile</a></button>
+<button *ngIf="isLoggedIn" type="button"><a href="/categories" routerLink="categories">Categories</a></button>
 
 <div class="container">
   <router-outlet></router-outlet>
