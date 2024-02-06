@@ -35,22 +35,14 @@ export class NavbarComponent implements OnInit {
           this.router.navigateByUrl('/profile')
         }
       },
-      {
-        label: 'Log out',
-        visible: this.isUserLoggedIn,
-        style: {'margin-left': 'auto'},
-        command: async () => {
-          await this.keycloak.logout()
-        }
-      },
-      {
-        label: 'Log in',
-        visible: !this.isUserLoggedIn,
-        style: {'margin-left': 'auto'},
-        command: () => {
-          this.keycloak.login()
-        }
-      }
     ]
+  }
+
+  public async logout() {
+    await this.keycloak.logout()
+  }
+
+  public login() {
+    this.keycloak.login()
   }
 }

@@ -1,3 +1,6 @@
-<div style="margin-bottom: 10px;">
-    <p-menubar [model]="items"></p-menubar>
-</div>
+<p-menubar [model]="items">
+    <ng-template pTemplate="end">
+        <button *ngIf="this.isUserLoggedIn" type="button" pButton pRipple (click)="this.logout()">Log out</button>
+        <button *ngIf="!this.isUserLoggedIn"type="button" pButton pRipple (click)="this.login()">Log in</button>
+    </ng-template>
+</p-menubar>
