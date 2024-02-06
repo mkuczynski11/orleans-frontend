@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Category } from '../category';
-import { AuctionsApiService } from '../auctions-api.service';
+import { Category } from '../../models/category';
+import { AuctionsApiService } from '../../service/auctions-api.service';
 
 @Component({
   selector: 'app-categories-list',

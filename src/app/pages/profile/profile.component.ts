@@ -10,6 +10,7 @@ import { KeycloakProfile } from 'keycloak-js';
     export class ProfileComponent implements OnInit {
     content: string = ''
     public userProfile: KeycloakProfile | null = null;
+    public token: string | null = null;
 
     constructor(private readonly keycloak: KeycloakService) {}
 
@@ -18,6 +19,7 @@ import { KeycloakProfile } from 'keycloak-js';
 
         if (isLoggedIn) {
             this.userProfile = await this.keycloak.loadUserProfile();
+            this.token = await this.keycloak.getToken()
         }
     }
 }

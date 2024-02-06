@@ -6,11 +6,12 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from './pages/home/home.component';
 import { CommonModule } from '@angular/common';
-import { ProfileComponent } from './profile/profile.component';
-import { CategoriesListComponent } from './categories-list/categories-list.component';
-import { AuctionsApiService } from './auctions-api.service';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { CategoriesListComponent } from './pages/categories-list/categories-list.component';
+import { AuctionsApiService } from './service/auctions-api.service';
+import { CategoryDetailsComponent } from './pages/category-details/category-details.component';
 
 function initializeKeycloak(keycloak: KeycloakService) {
   return () =>
@@ -33,7 +34,8 @@ function initializeKeycloak(keycloak: KeycloakService) {
     AppComponent,
     HomeComponent,
     ProfileComponent,
-    CategoriesListComponent
+    CategoriesListComponent,
+    CategoryDetailsComponent
   ],
   imports: [
     BrowserModule,
