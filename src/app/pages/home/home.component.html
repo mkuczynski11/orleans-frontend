@@ -1,8 +1,20 @@
-<div class="container">
+<!-- <div class="container">
     <header class="jumbotron">
       <div *ngIf="userProfile">
         <p *ngIf="userProfile.username">Welcome {{userProfile.username}} to Auction House</p>
       </div>
       <p *ngIf="!userProfile || !userProfile.username">Welcome to Auction House</p>
     </header>
+  </div> -->
+<div class="container">
+  <div *ngIf="!this.isLoggedIn" class="surface-section px-4 py-8 md:px-6 lg:px-8">
+    <div class="text-700 text-center">
+        <div class="text-900 font-bold text-5xl mb-3">Welcome to the auction house</div>
+        <div class="text-700 text-2xl mb-5">Want to participate in auctions for premium products or simply restock your home needs? Create an account and start enjoying auctions.</div>
+        <button pButton pRipple label="Register" class="font-bold px-5 py-3 p-button-raised p-button-rounded white-space-nowrap" (click)="this.register()"></button>
+    </div>
   </div>
+  <div *ngIf="this.isLoggedIn">
+    <h1>Welcome</h1>
+  </div>
+</div>
